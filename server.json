@@ -3,8 +3,12 @@
   "name": "ai.memegician/memegician",
   "title": "Memegician",
   "description": "Search 400+ meme templates, see what's trending, and render memes with your captions.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "websiteUrl": "https://memegician.ai/mcp-server",
+  "repository": {
+    "url": "https://github.com/Notysoty/memegician-mcp",
+    "source": "github"
+  },
   "remotes": [
     {
       "type": "streamable-http",
@@ -13,6 +17,36 @@
         {
           "name": "Authorization",
           "description": "Optional: Bearer <Memegician API key> for watermark-free renders (https://memegician.ai/api-access)",
+          "isRequired": false,
+          "isSecret": true
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "memegician-mcp",
+      "version": "1.0.0",
+      "transport": { "type": "stdio" },
+      "environmentVariables": [
+        {
+          "name": "MEMEGICIAN_API_KEY",
+          "description": "Optional Memegician API key for watermark-free renders (https://memegician.ai/api-access)",
+          "isRequired": false,
+          "isSecret": true
+        }
+      ]
+    },
+    {
+      "registryType": "pypi",
+      "identifier": "memegician-mcp",
+      "version": "1.0.0",
+      "transport": { "type": "stdio" },
+      "environmentVariables": [
+        {
+          "name": "MEMEGICIAN_API_KEY",
+          "description": "Optional Memegician API key for watermark-free renders (https://memegician.ai/api-access)",
           "isRequired": false,
           "isSecret": true
         }
