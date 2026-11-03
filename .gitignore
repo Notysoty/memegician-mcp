@@ -1,0 +1,10 @@
+node_modules/
+dist/
+build/
+*.egg-info/
+__pycache__/
+*.tgz
+npm/README.md
+npm/LICENSE
+python/README.md
+python/LICENSE

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "memegician": {
+      "command": "npx",
+      "args": ["-y", "memegician-mcp"]
+    }
+  }
+}

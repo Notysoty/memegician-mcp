@@ -1,0 +1,22 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "ai.memegician/memegician",
+  "title": "Memegician",
+  "description": "Search 400+ meme templates, see what's trending, and render memes with your captions.",
+  "version": "1.0.0",
+  "websiteUrl": "https://memegician.ai/mcp-server",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://memegician.ai/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Optional: Bearer <Memegician API key> for watermark-free renders (https://memegician.ai/api-access)",
+          "isRequired": false,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}

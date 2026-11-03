@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "memegician-mcp"
+version = "1.0.0"
+description = "Memegician MCP server for Claude, ChatGPT, Cursor and any MCP client: search 400+ meme templates, see what's trending and render memes. Stdio bridge to https://memegician.ai/mcp."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [{ name = "Memegician", email = "support@memegician.ai" }]
+keywords = ["mcp", "model-context-protocol", "mcp-server", "memes", "meme-generator", "meme-templates", "claude", "cursor", "ai"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Topic :: Multimedia :: Graphics",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://memegician.ai/mcp-server"
+Repository = "https://github.com/Notysoty/memegician-mcp"
+Issues = "https://github.com/Notysoty/memegician-mcp/issues"
+
+[project.scripts]
+memegician-mcp = "memegician_mcp:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/memegician_mcp"]

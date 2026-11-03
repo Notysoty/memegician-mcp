@@ -1,0 +1,16 @@
+{
+  "name": "memegician-mcp",
+  "version": "1.0.0",
+  "description": "Memegician MCP server for Claude, ChatGPT, Cursor and any MCP client: search 400+ meme templates, see what's trending and render memes. Stdio bridge to https://memegician.ai/mcp.",
+  "mcpName": "ai.memegician/memegician",
+  "type": "commonjs",
+  "bin": { "memegician-mcp": "bin/memegician-mcp.js" },
+  "files": ["bin", "README.md", "LICENSE"],
+  "engines": { "node": ">=18" },
+  "keywords": ["mcp", "model-context-protocol", "mcp-server", "memes", "meme-generator", "meme-templates", "claude", "cursor", "ai"],
+  "homepage": "https://memegician.ai/mcp-server",
+  "repository": { "type": "git", "url": "git+https://github.com/Notysoty/memegician-mcp.git", "directory": "npm" },
+  "bugs": { "url": "https://github.com/Notysoty/memegician-mcp/issues" },
+  "author": "Memegician <support@memegician.ai> (https://memegician.ai)",
+  "license": "MIT"
+}
