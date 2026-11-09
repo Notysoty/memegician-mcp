@@ -1,7 +1,7 @@
 {
   "name": "memegician-mcp",
-  "version": "1.0.0",
-  "description": "Memegician MCP server for Claude, ChatGPT, Cursor and any MCP client: search 400+ meme templates, see what's trending and render memes. Stdio bridge to https://memegician.ai/mcp.",
+  "version": "1.1.0",
+  "description": "Memegician MCP server for Claude, ChatGPT, Cursor and any MCP client: search 400+ meme templates, see what's trending and render memes. Sign in for AI-written memes (generate_memes). Stdio bridge to https://memegician.ai/mcp.",
   "mcpName": "ai.memegician/memegician",
   "type": "commonjs",
   "bin": { "memegician-mcp": "bin/memegician-mcp.js" },

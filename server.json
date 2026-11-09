@@ -2,8 +2,8 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "ai.memegician/memegician",
   "title": "Memegician",
-  "description": "Search 400+ meme templates, see what's trending, and render memes with your captions.",
-  "version": "1.1.0",
+  "description": "Search 400+ meme templates, see trends, render memes, or sign in to have AI write 6 memes.",
+  "version": "1.2.0",
   "websiteUrl": "https://memegician.ai/mcp-server",
   "repository": {
     "url": "https://github.com/Notysoty/memegician-mcp",
@@ -16,7 +16,7 @@
       "headers": [
         {
           "name": "Authorization",
-          "description": "Optional: Bearer <Memegician API key> for watermark-free renders (https://memegician.ai/api-access)",
+          "description": "Optional: Bearer <Memegician API key> for watermark-free renders and generate_memes without sign-in (https://memegician.ai/api-access). Remote clients can sign in with OAuth instead.",
           "isRequired": false,
           "isSecret": true
         }
@@ -27,12 +27,14 @@
     {
       "registryType": "npm",
       "identifier": "memegician-mcp",
-      "version": "1.0.0",
-      "transport": { "type": "stdio" },
+      "version": "1.1.0",
+      "transport": {
+        "type": "stdio"
+      },
       "environmentVariables": [
         {
           "name": "MEMEGICIAN_API_KEY",
-          "description": "Optional Memegician API key for watermark-free renders (https://memegician.ai/api-access)",
+          "description": "Optional Memegician API key: watermark-free renders and generate_memes (https://memegician.ai/api-access)",
           "isRequired": false,
           "isSecret": true
         }
@@ -41,12 +43,14 @@
     {
       "registryType": "pypi",
       "identifier": "memegician-mcp",
-      "version": "1.0.0",
-      "transport": { "type": "stdio" },
+      "version": "1.1.0",
+      "transport": {
+        "type": "stdio"
+      },
       "environmentVariables": [
         {
           "name": "MEMEGICIAN_API_KEY",
-          "description": "Optional Memegician API key for watermark-free renders (https://memegician.ai/api-access)",
+          "description": "Optional Memegician API key: watermark-free renders and generate_memes (https://memegician.ai/api-access)",
           "isRequired": false,
           "isSecret": true
         }

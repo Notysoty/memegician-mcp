@@ -6,13 +6,18 @@
  * it forwards each JSON-RPC message to https://memegician.ai/mcp (Streamable HTTP,
  * stateless) and writes the responses back to stdout. No dependencies, Node 18+.
  *
- * Env: MEMEGICIAN_API_KEY  optional, watermark-free renders (https://memegician.ai/api-access)
+ * Env: MEMEGICIAN_API_KEY  optional: watermark-free renders, and generate_memes without signing in
+ *                          (Startup/Enterprise key from https://memegician.ai/api-access)
  *      MEMEGICIAN_MCP_URL  optional, defaults to https://memegician.ai/mcp
  */
 "use strict";
 const readline = require("node:readline");
 
-const VERSION = "1.0.0";
+const VERSION = "1.1.0";
+const SIGN_IN_HELP = "This tool needs a Memegician account. Local (stdio) setups can't sign in, so either " +
+  "connect https://memegician.ai/mcp as a remote connector (your app will ask you to sign in; new accounts get 15 free credits) " +
+  "or set MEMEGICIAN_API_KEY to a Startup/Enterprise API key from https://memegician.ai/api-access. " +
+  "The free tools (search_meme_templates, get_meme_template, render_meme, get_trending_meme_templates) work without either.";
 const ENDPOINT = process.env.MEMEGICIAN_MCP_URL || "https://memegician.ai/mcp";
 const API_KEY = process.env.MEMEGICIAN_API_KEY || "";
 let protocolVersion = "";
@@ -24,7 +29,8 @@ function write(message) {
 async function forward(line) {
   let request;
   try { request = JSON.parse(line); } catch { return; }
-  const ids = (Array.isArray(request) ? request : [request]).map((m) => m && m.id).filter((id) => id !== undefined && id !== null);
+  const calls = (Array.isArray(request) ? request : [request]).filter((m) => m && m.id !== undefined && m.id !== null);
+  const ids = calls.map((m) => m.id);
   const headers = {
     "Content-Type": "application/json",
     Accept: "application/json, text/event-stream",
@@ -36,6 +42,15 @@ async function forward(line) {
     const res = await fetch(ENDPOINT, { method: "POST", headers, body: line });
     if (res.status === 202 || res.status === 204) return; // notification accepted
     const text = await res.text();
+    // A sign-in challenge (OAuth 401) isn't a JSON-RPC message: answer each request with help instead
+    if (res.status === 401 && !/"jsonrpc"/.test(text)) {
+      for (const m of calls) {
+        write(m.method === "tools/call"
+          ? { jsonrpc: "2.0", id: m.id, result: { isError: true, content: [{ type: "text", text: SIGN_IN_HELP }] } }
+          : { jsonrpc: "2.0", id: m.id, error: { code: -32001, message: SIGN_IN_HELP } });
+      }
+      return;
+    }
     const payloads = (res.headers.get("content-type") || "").includes("text/event-stream")
       ? text.split(/\r?\n/).filter((l) => l.startsWith("data:")).map((l) => l.slice(5).trim())
       : [text];

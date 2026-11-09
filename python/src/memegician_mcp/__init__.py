@@ -4,7 +4,8 @@ MCP clients that only launch local commands run this; it forwards each JSON-RPC 
 to https://memegician.ai/mcp (Streamable HTTP, stateless) and writes the responses back
 to stdout. Standard library only, Python 3.8+.
 
-Env: MEMEGICIAN_API_KEY  optional, watermark-free renders (https://memegician.ai/api-access)
+Env: MEMEGICIAN_API_KEY  optional: watermark-free renders, and generate_memes without signing in
+                         (Startup/Enterprise key from https://memegician.ai/api-access)
      MEMEGICIAN_MCP_URL  optional, defaults to https://memegician.ai/mcp
 """
 import json
@@ -14,7 +15,13 @@ import sys
 import urllib.error
 import urllib.request
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
+SIGN_IN_HELP = (
+    "This tool needs a Memegician account. Local (stdio) setups can't sign in, so either "
+    "connect https://memegician.ai/mcp as a remote connector (your app will ask you to sign in; new accounts get 15 free credits) "
+    "or set MEMEGICIAN_API_KEY to a Startup/Enterprise API key from https://memegician.ai/api-access. "
+    "The free tools (search_meme_templates, get_meme_template, render_meme, get_trending_meme_templates) work without either."
+)
 ENDPOINT = os.environ.get("MEMEGICIAN_MCP_URL", "https://memegician.ai/mcp")
 API_KEY = os.environ.get("MEMEGICIAN_API_KEY", "")
 
@@ -24,9 +31,9 @@ def _write(message):
     sys.stdout.flush()
 
 
-def _ids(request):
+def _calls(request):
     messages = request if isinstance(request, list) else [request]
-    return [m.get("id") for m in messages if isinstance(m, dict) and m.get("id") is not None]
+    return [m for m in messages if isinstance(m, dict) and m.get("id") is not None]
 
 
 def forward(line, state):
@@ -34,7 +41,8 @@ def forward(line, state):
         request = json.loads(line)
     except ValueError:
         return
-    ids = _ids(request)
+    calls = _calls(request)
+    ids = [m["id"] for m in calls]
     headers = {
         "Content-Type": "application/json",
         "Accept": "application/json, text/event-stream",
@@ -52,6 +60,14 @@ def forward(line, state):
         except urllib.error.HTTPError as err:  # 4xx/5xx still carry a JSON-RPC error body
             status, body, ctype = err.code, err.read().decode("utf-8"), err.headers.get("Content-Type", "")
         if status in (202, 204) or not body.strip():
+            return
+        # A sign-in challenge (OAuth 401) isn't a JSON-RPC message: answer each request with help instead
+        if status == 401 and '"jsonrpc"' not in body:
+            for m in calls:
+                if m.get("method") == "tools/call":
+                    _write({"jsonrpc": "2.0", "id": m["id"], "result": {"isError": True, "content": [{"type": "text", "text": SIGN_IN_HELP}]}})
+                else:
+                    _write({"jsonrpc": "2.0", "id": m["id"], "error": {"code": -32001, "message": SIGN_IN_HELP}})
             return
         if "text/event-stream" in ctype:
             payloads = [l[5:].strip() for l in body.splitlines() if l.startswith("data:")]
