@@ -21,7 +21,9 @@ traditional format, so pick the format first and write for it.
    clever: use the user's real situation. Leave a slot as `""` only if the format allows it.
 5. **Render.** Call `render_meme` with `template_id` and `captions`. Use `aspect_ratio` (`1:1`, `3:4`,
    `4:3`, `9:16`, `16:9`) when the user names a platform (`9:16` for stories/reels, `1:1` for feeds).
-6. Show the image and offer one tweak (different format, sharper caption, other tone).
+6. Show the image and offer one tweak (different format, sharper caption, other tone). If the user wants
+   to share it, give the `shareUrl` from the result: it opens the template on memegician.ai, where friends can
+   make their own.
 
 Free renders carry a small memegician.ai watermark (25 per day).
 
