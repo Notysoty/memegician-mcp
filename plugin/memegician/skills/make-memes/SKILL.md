@@ -12,7 +12,7 @@ traditional format, so pick the format first and write for it.
 
 1. **Find formats.** Call `search_meme_templates` with the emotion or situation, not the topic's nouns
    ("choosing between two options", "pretending everything is fine", "overconfidence"). For timely picks,
-   `get_trending_meme_templates` lists what people search for this month.
+   `get_trending_meme_templates` lists the most-searched formats in the latest month of search data (it names the month; data lags 1-2 months).
 2. **Pick the format whose joke structure matches** (comparison, escalation, reaction, before/after...).
    Mention the alternatives briefly if the user may prefer another.
 3. **Read the slots.** Call `get_meme_template`. Each slot's label says what goes there, in order; the

@@ -17,7 +17,7 @@ Make memes inside **Claude, ChatGPT, Cursor, VS Code, Windsurf** and any MCP cli
 | `search_meme_templates` | `query` (emotion, situation or name), `limit?` (1-25) | Template ids, names, slot counts, blank image URLs |
 | `get_meme_template` | `template_id` | Text slots (what each caption is for, in order), description, when to use, example captions |
 | `render_meme` | `template_id`, `captions[]`, `aspect_ratio?` (`1:1`, `3:4`, `4:3`, `9:16`, `16:9`) | The meme image plus a permanent PNG URL |
-| `get_trending_meme_templates` | `limit?` | This month's most-searched templates (US Google search volume) and biggest risers |
+| `get_trending_meme_templates` | `limit?` | Most-searched templates in the latest month of US Google search data (the result names the month) and biggest risers |
 | `generate_memes` (sign-in, 1 credit) | `situation` | 6 finished memes: AI picks the templates and writes the captions. Also saved to My Memes on memegician.ai |
 
 Prompt: `make_meme` (`topic`, `tone?`).
