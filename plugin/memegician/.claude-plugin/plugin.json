@@ -1,0 +1,16 @@
+{
+  "name": "memegician",
+  "displayName": "Memegician",
+  "version": "1.0.0",
+  "description": "Make memes from 400+ classic templates: find the right format, write captions that fit it, and render the image. Sign in to get 6 ready-made memes per request.",
+  "author": { "name": "Memegician", "email": "support@memegician.ai", "url": "https://memegician.ai" },
+  "homepage": "https://memegician.ai/mcp-server",
+  "repository": "https://github.com/Notysoty/memegician-mcp",
+  "license": "MIT",
+  "keywords": ["memes", "meme-generator", "meme-templates", "humor", "social-media", "marketing"],
+  "icon": "./icon.png",
+  "documentationUrl": "https://memegician.ai/mcp-server",
+  "supportUrl": "https://memegician.ai/contact",
+  "privacyPolicyUrl": "https://memegician.ai/privacy",
+  "termsOfServiceUrl": "https://memegician.ai/terms"
+}

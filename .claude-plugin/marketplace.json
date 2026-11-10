@@ -1,0 +1,15 @@
+{
+  "name": "memegician",
+  "owner": { "name": "Memegician", "email": "support@memegician.ai" },
+  "metadata": { "description": "Memegician plugins for Claude: make memes from 400+ classic templates." },
+  "plugins": [
+    {
+      "name": "memegician",
+      "source": "./plugin/memegician",
+      "description": "Make memes from 400+ classic templates: find the format, write captions that fit, render the image.",
+      "version": "1.0.0",
+      "category": "productivity",
+      "homepage": "https://memegician.ai/mcp-server"
+    }
+  ]
+}

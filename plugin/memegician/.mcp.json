@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "memegician": {
+      "type": "http",
+      "url": "https://memegician.ai/mcp"
+    }
+  }
+}
